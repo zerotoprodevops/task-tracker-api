@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # Connect to MongoDB using the Kubernetes Service name
 # We use an environment variable here to practice ConfigMaps later
