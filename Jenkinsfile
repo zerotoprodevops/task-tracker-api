@@ -23,7 +23,16 @@ pipeline{
             steps{
                 sh "TMPDIR=/tempdir trivy image --severity  CRITICAL --exit-code 1 $IMAGE:$TAG"
             }
-
+        }
+        stage("Upload Image to Docker Hub"){
+            steps{
+                
+                withDockerRegistry(credentialsId: 'dockerhub-cred', url: ' ') {
+                    sh  """
+                        docker push $IMAGE:$TAG
+                        """
+                }
+            }
         }
     }
 }
