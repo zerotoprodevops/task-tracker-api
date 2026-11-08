@@ -2,6 +2,10 @@ pipeline{
     agent {
         label 'build-vm'
     }
+    environent {
+        IMAGE = "jyotimanab/task-tracker-api"
+        TAG = "${env.BUILD_NUMBER}"
+    }
 
     stages{
         stage('git Checkout'){
