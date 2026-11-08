@@ -2,7 +2,7 @@ pipeline{
     agent {
         label 'build-vm'
     }
-    environent {
+    environment {
         IMAGE = "jyotimanab/task-tracker-api"
         TAG = "${env.BUILD_NUMBER}"
     }
