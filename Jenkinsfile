@@ -19,5 +19,11 @@ pipeline{
                 sh "docker build -t $IMAGE:$TAG ."
             }
         }
+        stage('Scan Image'){
+            steps{
+                sh "TMPDIR=/tempdir trivy image --severity  CRITICAL --exit-code 1 $IMAGE:$TAG"
+            }
+
+        }
     }
 }
