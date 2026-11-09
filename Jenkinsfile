@@ -42,7 +42,7 @@ pipeline{
                     sh  """
                         rm -rf task-tracker-api
                         # 1. clone the repo
-                        git clone https:${GIT_USER}:${GIT_PASS}@//github.com/zerotoprodevops/task-tracker-api.git
+                        git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/task-tracker-api.git
                         cd task-tracker-api
 
                         # 2: Update Values file
