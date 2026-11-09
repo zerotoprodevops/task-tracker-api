@@ -40,10 +40,10 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                     sh  """
-                        rm -rf task-tracker-api
+                        rm -rf task-tracker-gitops
                         # 1. clone the repo
-                        git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/task-tracker-api.git
-                        cd task-tracker-api
+                        git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/task-tracker-gitops.git
+                        cd task-tracker-gitops
 
                         # 2: Update Values file
                         yq ' .api.image.tag = strenv(TAG) | .api.image.tag style="double" ' ./environment/dev-values.yaml 
