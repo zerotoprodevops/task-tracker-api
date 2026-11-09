@@ -40,7 +40,7 @@ pipeline{
     post{
         success{
             echo "Image $IMAGE Build successful and uploaded to Docker Repository"
-            sh "docker rmi $IMAGE:$TAG"
+            sh "docker rmi $IMAGE:$TAG $IMAGE:latest"
         }
         failure{
             echo "Pipeline failed: Image $IMAGE:$TAG kept locally for debugging"
