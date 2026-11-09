@@ -46,7 +46,7 @@ pipeline{
                         cd task-tracker-gitops
 
                         # 2: Update Values file
-                        yq ' .api.image.tag = strenv(TAG) | .api.image.tag style="double" ' ./environment/dev-values.yaml 
+                        yq -i ' .api.image.tag = strenv(TAG) | .api.image.tag style="double" ' ./environment/dev-values.yaml 
                         
                         # 3. Push to GitHub
                         git config user.name "Jenkins CI"
