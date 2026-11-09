@@ -36,6 +36,29 @@ pipeline{
                 }
             }
         }
+        stage('Update gitops'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
+                    sh  """
+                        rm -rf task-tracker-api
+                        # 1. clone the repo
+                        git clone https:${GIT_USER}:${GIT_PASS}@//github.com/zerotoprodevops/task-tracker-api.git
+                        cd task-tracker-api
+
+                        # 2: Update Values file
+                        yq ' .api.image.tag = strenv(TAG) | .api.image.tag style="double" ' ./environment/dev-values.yaml 
+                        
+                        # 3. Push to GitHub
+                        git config user.name "Jenkins CI"
+                        git config user.email "jenkins@k8cluster.local"
+                        git add .
+                        git commit -m "Update ne tag"
+                        git push origin main
+                        """    
+                }
+            }
+
+        }
     }
     post{
         success{
