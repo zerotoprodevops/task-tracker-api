@@ -30,9 +30,20 @@ pipeline{
                 withDockerRegistry(credentialsId: 'dockerhub-cred', url: '') {
                     sh  """
                         docker push $IMAGE:$TAG
+                        docker tag $IMAGE:$TAG $IMAGE:latest
+                        docker push $IMAGE:latest
                         """
                 }
             }
+        }
+    }
+    post{
+        success{
+            echo "Image $IMAGE Build successful and uploaded to Docker Repository"
+            sh "docker rmi $IMAGE:$TAG"
+        }
+        failure{
+            echo "Pipeline failed: Image $IMAGE:$TAG kept locally for debugging"
         }
     }
 }
