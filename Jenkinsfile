@@ -39,7 +39,7 @@ pipeline{
         stage('Update gitops'){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
-                    sh  """
+                    sh  '''
                         rm -rf task-tracker-gitops
                         # 1. clone the repo
                         git clone https://${GIT_USER}:${GIT_PASS}@github.com/zerotoprodevops/task-tracker-gitops.git
@@ -54,7 +54,7 @@ pipeline{
                         git add .
                         git commit -m "Update ne tag"
                         git push origin main
-                        """    
+                        '''    
                 }
             }
 
